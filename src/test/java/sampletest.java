@@ -1,18 +1,35 @@
 package test.java;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-        import org.testng.annotations.DataProvider;
-        import org.testng.annotations.Test;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
-@Test()
+
+
 public class sampletest {
-    @DataProvider
-    public Object[][] data() {
-        return new String[][] {new String[] {"data1"}, new String[] {"data2"}};
+    WebDriver driver;
+
+    @BeforeSuite()
+    public void driver (){
+        System.setProperty("webderiver.chrome.driver", "assets/chromedriver.exe");
+        driver = new ChromeDriver();
+         driver.get("https://google.com");
+
     }
 
-    @Test(dataProvider = "data")
-    public void test(String d) {
-        Assert.assertEquals("First Line\nSecond Line", "First Line\nSecond Line");
+
+@Test()
+    public void test() {
+        String title = driver.getTitle();
+    System.out.println(title);
+    }
+
+    @AfterSuite()
+    public void close(){
+        driver.close();
     }
 }

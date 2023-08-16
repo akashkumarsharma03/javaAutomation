@@ -1,5 +1,7 @@
 package test.java;
 
+import main.java.org.example.Main;
+import main.java.org.example.logincheck;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -17,15 +19,22 @@ public class sampletest {
     public void driver (){
         System.setProperty("webderiver.chrome.driver", "assets/chromedriver.exe");
         driver = new ChromeDriver();
-         driver.get("https://google.com");
+         driver.get("https://www.saucedemo.com/");
 
     }
 
 
 @Test()
     public void test() {
-        String title = driver.getTitle();
-    System.out.println(title);
+       Main loginvalue = new Main(driver);
+       loginvalue.usernamefill("standard-user");
+       loginvalue.setPassword("secret_sauce");
+       loginvalue.clicklogin();
+
+    logincheck verify = new logincheck(driver);
+    String expected = verify.loginverify().getText();
+    String actual = "";
+    Assert.assertEquals(expected,actual);
     }
 
     @AfterSuite()
